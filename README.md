@@ -9,6 +9,9 @@
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 </div>
 
+## 注意/ATTENTION
+该项目仅为个人维护/修改版本，和官方没什么关系（）
+
 ## Credits
 
 - Main Programmer:
