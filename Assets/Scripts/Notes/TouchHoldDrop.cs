@@ -16,7 +16,6 @@ public class TouchHoldDrop : NoteLongDrop
     public Sprite TouchPointEachSprite;
 
     public GameObject[] fans;
-    public SpriteMask mask;
     private readonly SpriteRenderer[] fansSprite = new SpriteRenderer[6];
     private float displayDuration;
 
@@ -30,6 +29,9 @@ public class TouchHoldDrop : NoteLongDrop
 
     public char areaPosition;
     public int startPosition;
+
+    // Shader进度控制相关
+    private MaterialPropertyBlock propertyBlock;
 
     // Start is called before the first frame update
     private void Start()
@@ -68,7 +70,6 @@ public class TouchHoldDrop : NoteLongDrop
 
 
         SetfanColor(new Color(1f, 1f, 1f, 0f));
-        mask.enabled = false;
     }
 
     // Update is called once per frame
@@ -97,14 +98,15 @@ public class TouchHoldDrop : NoteLongDrop
         {
             SetfanColor(new Color(1f, 1f, 1f, Mathf.Clamp((wholeDuration + timing) / displayDuration, 0f, 1f)));
             fans[5].SetActive(false);
-            mask.enabled = false;
+            UpdateProgressShader(0f); // 进度条未激活
         }
         else if (-timing < moveDuration)
         {
             fans[5].SetActive(true);
-            mask.enabled = true;
             SetfanColor(Color.white);
-            mask.alphaCutoff = Mathf.Clamp(0.91f * (1 - (LastFor - timing) / LastFor), 0f, 1f);
+            // 更新进度条：从1到0线性减少
+            float progress = Mathf.Clamp01(1 - (LastFor - timing) / LastFor);
+            UpdateProgressShader(progress);
         }
 
         if (float.IsNaN(distance)) distance = 0f;
@@ -163,5 +165,22 @@ public class TouchHoldDrop : NoteLongDrop
     private void SetfanColor(Color color)
     {
         foreach (var fan in fansSprite) fan.color = color;
+    }
+
+    private void UpdateProgressShader(float progress)
+    {
+        if (fansSprite[5] != null)
+        {
+            if (propertyBlock == null)
+            {
+                propertyBlock = new MaterialPropertyBlock();
+            }
+            
+            // 使用MaterialPropertyBlock避免创建新的材质实例
+            fansSprite[5].GetPropertyBlock(propertyBlock);
+            propertyBlock.SetFloat("_Progress", progress);
+            propertyBlock.SetFloat("_Flip", 0f); // 正向填充：从空到满
+            fansSprite[5].SetPropertyBlock(propertyBlock);
+        }
     }
 }
