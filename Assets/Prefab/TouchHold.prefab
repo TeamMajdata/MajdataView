@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1367afbe6deac844397935403d8de74d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4570065831974175033
 Transform:
   m_ObjectHideFlags: 0
@@ -639,10 +639,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 5
-  sortOrder: 0
+  noteSortOrder: 0
   LastFor: 1
   speed: 0.8
   isFirework: 0
+  isEach: 0
   tapEffect: {fileID: 314035496818238881, guid: 3edd06a81e4ec844bb281d728dce49b2,
     type: 3}
   holdEffect: {fileID: 692072832370815118, guid: 0bed8d7e7c63e184ab46c11a9653a6e2,
@@ -654,6 +655,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   TouchPointSprite: {fileID: 0}
+  TouchPointEachSprite: {fileID: 0}
   fans:
   - {fileID: 4570065831800169648}
   - {fileID: 4570065832418346541}
@@ -661,4 +663,5 @@ MonoBehaviour:
   - {fileID: 4570065832687991426}
   - {fileID: 4570065831502088326}
   - {fileID: 4570065831695336318}
-  mask: {fileID: 4570065831974175032}
+  areaPosition: 52
+  startPosition: 0
